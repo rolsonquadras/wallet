@@ -16,98 +16,98 @@ on:
     branches: [ main ]
 
 jobs:
-  Checks:
-    runs-on: ubuntu-20.04
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: ${{ env.GO_VERSION }}
-      - name: Run checks
-        run: |
-          echo $PATH
-          go env
-          echo ${{ github.workspace }}
-          echo '//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}' > ~/.npmrc
-          echo '@hyperledger:registry=https://npm.pkg.github.com' >> ~/.npmrc
-          echo '@trustbloc-cicd:registry=https://npm.pkg.github.com' >> ~/.npmrc
-          echo '@trustbloc:registry=https://npm.pkg.github.com' >> ~/.npmrc
-          make checks
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  UnitTest:
-    runs-on: ubuntu-20.04
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: ${{ env.GO_VERSION }}
-      - name: Run unit test
-        run: make unit-test
-      - name: Upload coverage to Codecov
-        run: |
-          bash <(curl https://codecov.io/bash)
-        env:
-          CODECOV_UPLOAD_TOKEN: ${{ secrets.CODECOV_UPLOAD_TOKEN }}
-
-  BDDTestWalletWeb:
-    runs-on: ubuntu-20.04
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: ${{ env.GO_VERSION }}
-      - name: Run BDD test JS
-        run: |
-          echo '127.0.0.1 testnet.orb.local' | sudo tee -a /etc/hosts
-          echo '127.0.0.1 bdd-hub-auth-hydra.trustbloc.local' | sudo tee -a /etc/hosts
-          echo '127.0.0.1 bdd-hydra.trustbloc.local' | sudo tee -a /etc/hosts
-          echo '127.0.0.1 bddtest-wallet-web.trustbloc.local' | sudo tee -a /etc/hosts
-          echo '127.0.0.1 bdd-edv-oathkeeper-proxy' | sudo tee -a /etc/hosts
-          echo '//npm.pkg.github.com/:_authToken=${DOCKER_PASSWORD}' > ~/.npmrc
-          echo '@hyperledger:registry=https://npm.pkg.github.com' >> ~/.npmrc
-          echo '@trustbloc-cicd:registry=https://npm.pkg.github.com' >> ~/.npmrc
-          echo '@trustbloc:registry=https://npm.pkg.github.com' >> ~/.npmrc
-          make bdd-test-wallet-web
-
-  BDDTestWalletServer:
-    runs-on: ubuntu-20.04
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: ${{ env.GO_VERSION }}
-      - name: Run BDD test
-        run: |
-          echo '127.0.0.1 testnet.orb.local' | sudo tee -a /etc/hosts
-          echo '127.0.0.1 hydra.trustbloc.local' | sudo tee -a /etc/hosts
-          echo '127.0.0.1 stakeholder.one' | sudo tee -a /etc/hosts
-          echo '127.0.0.1 sidetree-mock' | sudo tee -a /etc/hosts
-          echo '127.0.0.1 bdd-hub-auth-hydra.trustbloc.local' | sudo tee -a /etc/hosts
-          echo '127.0.0.1 bdd-hydra.trustbloc.local' | sudo tee -a /etc/hosts
-          echo '127.0.0.1 bddtest-wallet-web.trustbloc.local' | sudo tee -a /etc/hosts
-          echo '127.0.0.1 bdd-edv-oathkeeper-proxy' | sudo tee -a /etc/hosts
-          echo '//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}' > ~/.npmrc
-          echo '@hyperledger:registry=https://npm.pkg.github.com' >> ~/.npmrc
-          echo '@trustbloc-cicd:registry=https://npm.pkg.github.com' >> ~/.npmrc
-          echo '@trustbloc:registry=https://npm.pkg.github.com' >> ~/.npmrc
-          make bdd-test-wallet-server
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#  Checks:
+#    runs-on: ubuntu-20.04
+#    timeout-minutes: 30
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Set up Go
+#        uses: actions/setup-go@v2
+#        with:
+#          go-version: ${{ env.GO_VERSION }}
+#      - name: Run checks
+#        run: |
+#          echo $PATH
+#          go env
+#          echo ${{ github.workspace }}
+#          echo '//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}' > ~/.npmrc
+#          echo '@hyperledger:registry=https://npm.pkg.github.com' >> ~/.npmrc
+#          echo '@trustbloc-cicd:registry=https://npm.pkg.github.com' >> ~/.npmrc
+#          echo '@trustbloc:registry=https://npm.pkg.github.com' >> ~/.npmrc
+#          make checks
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#
+#  UnitTest:
+#    runs-on: ubuntu-20.04
+#    timeout-minutes: 30
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Set up Go
+#        uses: actions/setup-go@v2
+#        with:
+#          go-version: ${{ env.GO_VERSION }}
+#      - name: Run unit test
+#        run: make unit-test
+#      - name: Upload coverage to Codecov
+#        run: |
+#          bash <(curl https://codecov.io/bash)
+#        env:
+#          CODECOV_UPLOAD_TOKEN: ${{ secrets.CODECOV_UPLOAD_TOKEN }}
+#
+#  BDDTestWalletWeb:
+#    runs-on: ubuntu-20.04
+#    timeout-minutes: 30
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Set up Go
+#        uses: actions/setup-go@v2
+#        with:
+#          go-version: ${{ env.GO_VERSION }}
+#      - name: Run BDD test JS
+#        run: |
+#          echo '127.0.0.1 testnet.orb.local' | sudo tee -a /etc/hosts
+#          echo '127.0.0.1 bdd-hub-auth-hydra.trustbloc.local' | sudo tee -a /etc/hosts
+#          echo '127.0.0.1 bdd-hydra.trustbloc.local' | sudo tee -a /etc/hosts
+#          echo '127.0.0.1 bddtest-wallet-web.trustbloc.local' | sudo tee -a /etc/hosts
+#          echo '127.0.0.1 bdd-edv-oathkeeper-proxy' | sudo tee -a /etc/hosts
+#          echo '//npm.pkg.github.com/:_authToken=${DOCKER_PASSWORD}' > ~/.npmrc
+#          echo '@hyperledger:registry=https://npm.pkg.github.com' >> ~/.npmrc
+#          echo '@trustbloc-cicd:registry=https://npm.pkg.github.com' >> ~/.npmrc
+#          echo '@trustbloc:registry=https://npm.pkg.github.com' >> ~/.npmrc
+#          make bdd-test-wallet-web
+#
+#  BDDTestWalletServer:
+#    runs-on: ubuntu-20.04
+#    timeout-minutes: 30
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Set up Go
+#        uses: actions/setup-go@v2
+#        with:
+#          go-version: ${{ env.GO_VERSION }}
+#      - name: Run BDD test
+#        run: |
+#          echo '127.0.0.1 testnet.orb.local' | sudo tee -a /etc/hosts
+#          echo '127.0.0.1 hydra.trustbloc.local' | sudo tee -a /etc/hosts
+#          echo '127.0.0.1 stakeholder.one' | sudo tee -a /etc/hosts
+#          echo '127.0.0.1 sidetree-mock' | sudo tee -a /etc/hosts
+#          echo '127.0.0.1 bdd-hub-auth-hydra.trustbloc.local' | sudo tee -a /etc/hosts
+#          echo '127.0.0.1 bdd-hydra.trustbloc.local' | sudo tee -a /etc/hosts
+#          echo '127.0.0.1 bddtest-wallet-web.trustbloc.local' | sudo tee -a /etc/hosts
+#          echo '127.0.0.1 bdd-edv-oathkeeper-proxy' | sudo tee -a /etc/hosts
+#          echo '//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}' > ~/.npmrc
+#          echo '@hyperledger:registry=https://npm.pkg.github.com' >> ~/.npmrc
+#          echo '@trustbloc-cicd:registry=https://npm.pkg.github.com' >> ~/.npmrc
+#          echo '@trustbloc:registry=https://npm.pkg.github.com' >> ~/.npmrc
+#          make bdd-test-wallet-server
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   Publish:
     name: Publish image
-    if: github.event_name == 'push' && (github.repository == 'trustbloc/wallet' && github.ref == 'refs/heads/main')
-    needs: [Checks, UnitTest, BDDTestWalletWeb, BDDTestWalletServer]
+#    if: github.event_name == 'push' && (github.repository == 'trustbloc/wallet' && github.ref == 'refs/heads/main')
+#    needs: [Checks, UnitTest, BDDTestWalletWeb, BDDTestWalletServer]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -137,6 +137,8 @@ jobs:
       - name: Set ENV vars
         run: |
           VERSION=$(git rev-parse --short=7 HEAD)
+          echo ${{ env.CURRENT_SEMVER }}
+          echo ${{ steps.bump_version.outputs.next-version }}
           echo "IMAGE_TAG"=v${{ steps.bump_version.outputs.next-version }}-snapshot-$VERSION >> $GITHUB_ENV
           echo "WALLET_WEB_IMAGE_PREFIX"=ghcr.io/trustbloc-cicd/wallet-web >> $GITHUB_ENV
           echo "WALLET_SERVER_IMAGE_PREFIX"=ghcr.io/trustbloc-cicd/wallet-server >> $GITHUB_ENV
@@ -163,30 +165,30 @@ jobs:
           username: ${{ secrets.CR_USER }}
           password: ${{ secrets.CR_PAT }}
 
-      - name: Build and Push container wallet-web image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./images/wallet-web/Dockerfile
-          platforms: linux/amd64,linux/arm64
-          build-args: |
-            ALPINE_VER=3.12
-            GO_VER=1.16
-          push: true
-          tags: |
-            ${{ env.WALLET_WEB_IMAGE_PREFIX }}:${{ env.IMAGE_TAG }}
-            ${{ env.WALLET_WEB_IMAGE_PREFIX }}:latest
-
-      - name: Build and Push wallet-server image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./images/wallet-server/Dockerfile
-          platforms: linux/amd64,linux/arm64
-          build-args: |
-            ALPINE_VER=3.12
-            GO_VER=1.16
-          push: true
-          tags: |
-            ${{ env.WALLET_SERVER_IMAGE_PREFIX }}:${{ env.IMAGE_TAG }}
-            ${{ env.WALLET_SERVER_IMAGE_PREFIX }}:latest
+#      - name: Build and Push container wallet-web image
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: .
+#          file: ./images/wallet-web/Dockerfile
+#          platforms: linux/amd64,linux/arm64
+#          build-args: |
+#            ALPINE_VER=3.12
+#            GO_VER=1.16
+#          push: true
+#          tags: |
+#            ${{ env.WALLET_WEB_IMAGE_PREFIX }}:${{ env.IMAGE_TAG }}
+#            ${{ env.WALLET_WEB_IMAGE_PREFIX }}:latest
+#
+#      - name: Build and Push wallet-server image
+#        uses: docker/build-push-action@v2
+#        with:
+#          context: .
+#          file: ./images/wallet-server/Dockerfile
+#          platforms: linux/amd64,linux/arm64
+#          build-args: |
+#            ALPINE_VER=3.12
+#            GO_VER=1.16
+#          push: true
+#          tags: |
+#            ${{ env.WALLET_SERVER_IMAGE_PREFIX }}:${{ env.IMAGE_TAG }}
+#            ${{ env.WALLET_SERVER_IMAGE_PREFIX }}:latest
