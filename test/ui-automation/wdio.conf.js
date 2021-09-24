@@ -11,5 +11,6 @@ import { config } from "./wdio.shared.conf";
 exports.config = {
   ...config,
   walletName: "TrustBloc Wallet",
-  walletURL: "https://wallet.trustbloc.local:8091",
+  walletURL: "https://wallet.stg.trustbloc.dev",
+  mediatorURL: "https://router-api.stg.trustbloc.dev",
 };

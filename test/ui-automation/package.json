@@ -35,7 +35,9 @@
     "@wdio/spec-reporter": "^7.4.3",
     "mochawesome-report-generator": "^3.1.5",
     "wdio-mochawesome-reporter": "^4.0.0",
-    "xunit-viewer": "^7.1.1"
+    "xunit-viewer": "^7.1.1",
+    "@trustbloc/wallet-sdk": "^0.1.7",
+    "@trustbloc/agent-sdk-web": "^0.1.7"
   },
   "bugs": {
     "url": "https://github.com/trustbloc/wallet/issues"
