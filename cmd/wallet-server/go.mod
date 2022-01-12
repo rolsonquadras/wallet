@@ -7,7 +7,7 @@ module github.com/trustbloc/edge-agent/cmd/wallet-server
 go 1.16
 
 require (
-	github.com/cenkalti/backoff/v4 v4.1.1
+	github.com/cenkalti/backoff/v4 v4.1.2
 	github.com/coreos/go-oidc v2.2.1+incompatible
 	github.com/duo-labs/webauthn v0.0.0-20200714211715-1daaee874e43
 	github.com/golang/snappy v0.0.4 // indirect
